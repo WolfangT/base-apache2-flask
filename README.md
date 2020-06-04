@@ -4,6 +4,7 @@
 Based on [github user carlostighe's repo](https://github.com/carlostighe/apache-flask)
 
 This repo is for use as a base image for multiple other services build on:
+    
     - Debian Sid
     - apache2
     - mod-wsgi
@@ -17,15 +18,14 @@ This repo is for a more production ready environment.
 
 The command to run the `Dockerfile` is:
 
-`docker run -d -p 80:80 --name <name> apache-flask`
+`docker run -d -p 80:80 --name <name> base-apache2-flask`
 
 Alternatively, you can use docker-compose with:
 
 `docker-compose up -d`
 
  * Download the repo
- * build the image: `docker build -t apache-flask .`
- * 
+ * build the image: `docker build -t base-apache2-flask .`
 
 
 #### The docker file runs through the following steps:  
