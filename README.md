@@ -32,14 +32,8 @@ Alternatively, you can use docker-compose with:
 
  - get the latest debian image  
  - install the requirements for python and flask on debian  
- - copy over the `requirements.txt` file and run `pip install` on it  
- - This is copied separately so that the dependencies are cached and dont need to run everytime the image is rebuilt  
- - copy over the application config file for apache  
- - copy over the `.wsgi` file. This is the entrypoint for our application  
- - copy over the `run.py` file  
- - copy over the application  
- - enable the new apache config file and headers   
- - dissable the default apache config file  
+ - copies over our files including the default app
+ - replaces the default config file for apache with one linking to our default app
  - expose port 80  
  - point the container to the application directory  
  - the run command. 
