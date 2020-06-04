@@ -5,7 +5,7 @@ Based on [github user carlostighe's repo](https://github.com/carlostighe/apache-
 
 This repo is for use as a base image for multiple other services build on:
     
-    - Debian Sid
+    - Debian buster
     - apache2
     - mod-wsgi
     - python3

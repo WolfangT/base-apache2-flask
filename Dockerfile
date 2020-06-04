@@ -6,7 +6,7 @@
 # Set the base image and metadata
 FROM debian:buster-slim
 LABEL maintainer="wolfang.torres@gmail.com"
-LABEL version="0.3"
+LABEL version="0.5"
 LABEL description="This is custom Docker Image for debian Buster, apache2, mod-wsgi, python3 and flask"
 
 # install all basics dependencies
@@ -17,8 +17,6 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     python3-wheel \
     python3-flask* \
-    curl \
-    vim \
  && apt-get clean \
  && apt-get autoremove \
  && rm -rf /var/lib/apt/lists/*
