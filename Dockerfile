@@ -3,43 +3,33 @@
 # Based on
 ############################################################
 
-# Set the base image
-FROM debian:latest
+# Set the base image and metadata
+FROM debian:buster-slim
+LABEL maintainer="wolfang.torres@gmail.com"
+LABEL version="0.3"
+LABEL description="This is custom Docker Image for debian Buster, apache2, mod-wsgi, python3 and flask"
 
-# File Author / Maintainer
-MAINTAINER Carlos Tighe
-
-RUN apt-get update && apt-get install -y apache2 \
-    libapache2-mod-wsgi \
-    build-essential \
-    python \
-    python-dev\
-    python-pip \
+# install all basics dependencies
+RUN apt-get update && apt-get install -y \
+    apache2 \
+    libapache2-mod-wsgi-py3 \
+    python3 \
+    python3-pip \
+    python3-wheel \
+    python3-flask* \
+    curl \
     vim \
  && apt-get clean \
  && apt-get autoremove \
  && rm -rf /var/lib/apt/lists/*
 
-# Copy over and install the requirements
-COPY ./app/requirements.txt /var/www/apache-flask/app/requirements.txt
-RUN pip install -r /var/www/apache-flask/app/requirements.txt
+# Copy over the apache configuration file and wsgi
+COPY . /var/www/default
+COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
 
-# Copy over the apache configuration file and enable the site
-COPY ./apache-flask.conf /etc/apache2/sites-available/apache-flask.conf
-RUN a2ensite apache-flask
+# Run configurations
 RUN a2enmod headers
-
-# Copy over the wsgi file
-COPY ./apache-flask.wsgi /var/www/apache-flask/apache-flask.wsgi
-
-COPY ./run.py /var/www/apache-flask/run.py
-COPY ./app /var/www/apache-flask/app/
-
-RUN a2dissite 000-default.conf
-RUN a2ensite apache-flask.conf
-
 EXPOSE 80
-
-WORKDIR /var/www/apache-flask
+WORKDIR /var/www/default
 
 CMD  /usr/sbin/apache2ctl -D FOREGROUND
