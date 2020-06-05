@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
     python3-wheel \
  && apt-get clean \
  && apt-get autoremove \
- && rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/* \
  && python3 -m pip install flask
 
 # Copy over the apache configuration file and wsgi
