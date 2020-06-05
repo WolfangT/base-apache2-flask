@@ -16,10 +16,10 @@ RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
     python3-wheel \
-    python3-flask* \
  && apt-get clean \
  && apt-get autoremove \
  && rm -rf /var/lib/apt/lists/*
+ && python3 -m pip install flask
 
 # Copy over the apache configuration file and wsgi
 COPY . /var/www/default
