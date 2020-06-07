@@ -1,33 +1,38 @@
 ############################################################
 # Dockerfile to build Flask App
-# Based on
+# Based on httpd on buster-slim
 ############################################################
 
 # Set the base image and metadata
-FROM debian:buster-slim
+FROM httpd:2.4
 LABEL maintainer="wolfang.torres@gmail.com"
-LABEL version="0.5"
+LABEL version="0.6"
 LABEL description="This is custom Docker Image for debian Buster, apache2, mod-wsgi, python3 and flask"
 
+ENV SRV_DIR /srv/www
+ENV INS_DIR /var/lib
+ENV LOG_DIR /var/log
+ENV CONF_DIR /etc/apache2/sites-available
+RUN mkdir ${INS_DIR}/default_app ${LOG_DIR}/default_app
+
 # install all basics dependencies
-RUN apt-get update && apt-get install -y \
-    apache2 \
+RUN apt update && apt-get install -y \
     libapache2-mod-wsgi-py3 \
     python3 \
     python3-pip \
     python3-wheel \
- && apt-get clean \
- && apt-get autoremove \
- && rm -rf /var/lib/apt/lists/* \
- && python3 -m pip install flask
+ && apt clean \
+ && apt autoremove \
+ && rm -rf /var/lib/apt/lists/* 
 
 # Copy over the apache configuration file and wsgi
-COPY . /var/www/default
-COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY . ${SRV_DIR}/default
+COPY ./000-default.conf ${CONF_DIR}/000-default.conf
+RUN a2enmod headers
+WORKDIR ${SRV_DIR}/default
+RUN python -m pip install -e .
 
 # Run configurations
-RUN a2enmod headers
+VOLUME ${LOG_DIR}/apache2
 EXPOSE 80
-WORKDIR /var/www/default
-
-CMD  /usr/sbin/apache2ctl -D FOREGROUND
+CMD ["httpd-foreground"]

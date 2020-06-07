@@ -1,7 +1,5 @@
 #! /usr/bin/env python3
 
-import sys
-sys.path.append("/var/www/default")
+from default_app import create_app
 
-from app import create_app
 application = create_app()
