@@ -37,6 +37,5 @@ RUN mkdir ${INS_DIR}/default_app ${LOG_DIR}/default_app \
  && a2enmod headers
 
 # Run configurations
-VOLUME ${LOG_DIR}/apache2
 EXPOSE 80
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]

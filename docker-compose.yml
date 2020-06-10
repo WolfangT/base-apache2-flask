@@ -1,7 +1,13 @@
-version: '2.0'
+version: '3'
+
 services:
     web:
         build: .
+        image: wolfangtorres/base-apache2-flask
         ports:
-        - "80:80"
-        restart: always
+            - "8080:80"
+        volumes:
+            - apache2-logs:/var/log/apache2
+
+volumes:
+    apache2-logs:
