@@ -14,7 +14,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV SRV_DIR /srv/www
 ENV INS_DIR /var/lib
 ENV LOG_DIR /var/log
-ENV CONF_DIR /etc/apache2/sites-enabled
+ENV CONF_DIR /etc/apache2/sites-available
 
 # install all basics dependencies
 RUN apt update && apt install -y \
