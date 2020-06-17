@@ -5,7 +5,7 @@ services:
         build: .
         image: wolfangtorres/base-apache2-flask
         ports:
-            - "8080:80"
+            - "80:80"
         volumes:
             - apache2-logs:/var/log/apache2
 

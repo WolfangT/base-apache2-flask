@@ -17,14 +17,14 @@ ENV LOG_DIR /var/log
 ENV CONF_DIR /etc/apache2/sites-available
 
 # install all basics dependencies
-RUN apt update && apt install -y \
+RUN apt-get update && apt-get install -y \
     python3 \ 
     python3-pip \
     python3-wheel \
     apache2 \
     libapache2-mod-wsgi-py3 \
- && apt clean -y \
- && apt autoremove -y \
+ && apt-get clean -y \
+ && apt-get autoremove -y \
  && rm -rf /var/lib/apt/lists/* 
 
 # Copy over the apache configuration file and wsgi
