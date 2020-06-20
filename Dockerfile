@@ -18,14 +18,15 @@ ENV CONF_DIR /etc/apache2/sites-available
 
 # install all basics dependencies
 RUN apt-get update && apt-get install -y \
-    python3 \ 
+    python3 \
     python3-pip \
     python3-wheel \
+    python3-flask \
     apache2 \
     libapache2-mod-wsgi-py3 \
  && apt-get clean -y \
  && apt-get autoremove -y \
- && rm -rf /var/lib/apt/lists/* 
+ && rm -rf /var/lib/apt/lists/*
 
 # Copy over the apache configuration file and wsgi
 WORKDIR ${SRV_DIR}/default
